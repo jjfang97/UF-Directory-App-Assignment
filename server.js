@@ -6,7 +6,8 @@ var http = require('http'),
 /* Global variables */
 var listingData, server;
 
-var requestHandler = function(request, response) {
+var requestHandler = function(request, response) 
+{
   var parsedUrl = url.parse(request.url);
 
   /*
@@ -16,11 +17,33 @@ var requestHandler = function(request, response) {
     HINT: explore the request object and its properties 
     http://stackoverflow.com/questions/17251553/nodejs-request-object-documentation
    */
+   if(request.method === 'GET' && parsedUrl.pathname === '/listings')
+   {
+   		response.write(listingData);
+   		response.end();
+   }
+   else
+   {
+   		response.statusCode = '404';
+   		response.write('Bad gateway error');
+   		response.end();
+   }
 };
 
-fs.readFile('listings.json', 'utf8', function(err, data) {
+fs.readFile('listings.json', 'utf8', function(err, data) 
+{
   /*
     This callback function should save the data in the listingData variable, 
     then start the server. 
    */
+   if(err)
+   {
+   		console.log('error');
+   		return;
+   }
+
+   listingData = data;
+   server = http.createServer(requestHandler);
+   server.listen(port);
+   console.log('Server listening on: http:localhost:' + port);
 });
