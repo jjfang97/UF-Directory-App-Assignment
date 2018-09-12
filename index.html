@@ -27,30 +27,54 @@
                 <th>Building Name</th>
                 <th></th>
               </tr>
-              <!-- 
+              <tr ng-repeat="item in listings | filter: search track by $index" ng-click="showDetails(list)" style="cursor:pointer">
+                <th>{{ item.code }}</th>
+                <th>{{ item.name }}</th>=
+                <th class="btn btn-danger" ng-click="deleteListing(list)">Delete <span class="glyphicon glyphicon-trash"></span></th>
+                
+              </tr>
 
-                  Fill in the rest of the table:
-                      * populate the rows with the code and name of each listing
-                      * include a way to remove individual listings
-
-                --> 
             </table>
           </div>
-          <!-- 
-
-              Write an HTML form that adds new listings to the directory 
-
-            -->
+            <div class="add_data">
+              <h2> Add Listing </h2>
+              <form ng-submit="addListing()">
+                <div class="field">
+                  <label for="code">Code:</label>
+                  <input id="code" type = "text" placeholder="code" ng-Model="nCode">
+                </div>
+                <div class="field">
+                  <label for="name">Building Name: </label>
+                  <input id="name" type="text" placeholder="name" ng-model="nName">
+                </div>
+                <div class="field">
+                  <label for="latitude">Latitude: </label>
+                  <input id="latitude" type="text" placeholder="latitude" ng-model="nLatitude">
+                </div>
+                <div class="field">
+                  <label for="longitude">Longitude: </label>
+                  <input id="longitude" type="text" placeholder="longitude" ng-model="nLongitude">
+                </div>
+                <div class="field">
+                  <label for="address">Address: </label>
+                  <input id="address" type="text" placeholder="address" ng-model="nAddress">
+                </div>
+                <div class="field">
+                  <button type="submit">Add Listing</button>
+                </div>
+              </form>
+            </div>
         </div>
         <div class="col-md-6">
           <div class="jumbotron">
             <h2>Detailed Information</h2>
-            <!-- 
-
-              Include a way to display detailed information about an individual listing:
-                   * consider how to use ng-click within the the table to implement this feature
-
-             -->
+            <ul class="list-group">
+              <li class="list-group-item">Code: {{detailedInfo.code}}</li>
+              <li class="list-group-item">Name: {{detailedInfo.name}}</li>
+              <li class="list-group-item">Latitude: {{detailedInfo.latitude}}</li>
+              <li class="list-group-item">Longitude: {{detailedInfo.longitude}}</li>
+              <li class="list-group-item">Address: {{detailedInfo.address}}</li>
+            </ul>
           </div>
         </div>
       </div>
